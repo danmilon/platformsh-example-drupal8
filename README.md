@@ -1,43 +1,36 @@
-# Drupal project template for Platform.sh
+Killer Drupal 8 Workflow for Platform.sh
+========================================
 
-This project provides a starter kit for Drupal 8 projects hosted on [Platform.sh](http://platform.sh). It
-is very closely based on the [Drupal Composer project](https://github.com/drupal-composer/drupal-project).
+This project is meant to be forked and used as an easy-to-get-going start state for an awesome dev workflow that includes:
 
-## Starting a new project
+1. Canonical upstream repo on [GitHub](http://github.com)
+2. Local development and tooling with [Lando](http://docs.devwithlando.io)
+3. Hosting on [Platform.sh](http://platform.sh)
+4. Automatic manual QA environments for [pull requests](https://docs.platform.sh/administration/integrations/github.html)
+6. Merge-to-master deploy-to-platform.sh [deploy pipeline](https://docs.platform.sh/administration/integrations/github.html)
+7. Automated code linting, unit testing and behat testing with [Travis](https://travis-ci.org/)
 
-To start a new Drupal 8 project on Platform.sh, you have 2 options:
+What You'll Need
+----------------
 
-1. Create a new project through the Platform.sh user interface and select "start
+Before you kick off you'll need to make sure you have a few things:
+
+1. A GitHub account
+2. A Platform.sh account
+3. A Travis CI account
+4. [Lando installed](https://docs.devwithlando.io/installation/installing.html)
+
+It is also definitely worth reading about the upstream [starter kit](https://github.com/platformsh/platformsh-example-drupal8) and accompanying [documentation](https://docs.platform.sh/gettingstarted/local/lando.html) on using Lando with [Platform.sh](http://platform.sh).
+
+Getting Started
+---------------
+
+1. Visit [this start state](https://github.com/thinktandem/platformsh-example-drupal8) on GitHub and fork the project
+   to the or
+2. Create a new project through the Platform.sh user interface and select "start
    new project from a template".  Then select Drupal 8 as the template. That will
    create a new project using this repository as a starting point.
 
-2. Take an existing project, add the necessary Platform.sh files, and push it
-   to a Platform.sh Git repository. This template includes examples of how to
-   set up a Drupal 8 site.  (See the "differences" section below.)
 
-## Using as a reference
-
-You can also use this repository as a reference for your own Drupal projects, and borrow whatever code is needed.  The most important parts are the [`.platform.app.yaml`](/.platform.app.yaml) file and the [`.platform`](/.platform) directory.
-
-Also see:
-
-* [`settings.php`](/web/sites/default/settings.php) - The customized `settings.php` file works for both Platform.sh and local development, setting only those values that are needed in both.  You can add additional values as documented in `default.settings.php` as desired.
-* [`settings.platformsh.php`](/web/sites/default/settings.platformsh.php) - This file contains Platform.sh-specific code to map environment variables into Drupal configuration.  You can add to it as needed.  See [the documentation](https://docs.platform.sh/frameworks/drupal8.html) for more examples of common snippets to include here.
-* [`scripts/platformsh`](/scripts/platformsh) - This directory contains our update script to keep this repository in sync with the Drupal Composer project.  It may be safely ignored or removed.
-
-## Managing a Drupal site built with Composer
-
-Once the site is installed, there is no difference between a site hosted on Platform.sh
-and a site hosted anywhere else.  It's just Composer.  See the [Drupal documentation](https://www.drupal.org/node/2404989) for tips on how best to leverage Composer with Drupal 8.
-
-## How does this starter kit differ from vanilla Drupal from Drupal.org?
-
-1. The `vendor` directory (where non-Drupal code lives) and the `config` directory
-   (used for syncing configuration from development to production) are outside
-   the web root. This is a bit more secure as those files are now not web-accessible.
-
-2. The `settings.php` and `settings.platformsh.php` files are provided by
-   default. The `settings.platformsh.php` file automatically sets up the database connection on Platform.sh, and allows controlling Drupal configuration from environment variables.
-
-3. We include recommended `.platform.app.yaml` and `.platform` files that should suffice
-   for most use cases. You are free to tweak them as needed for your particular site.
+Trying Things Out
+-----------------
