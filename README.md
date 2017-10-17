@@ -16,7 +16,7 @@ What You'll Need
 Before you kick off you'll need to make sure you have a few things:
 
 1. A GitHub account, ideally with your SSH key(s) added
-2. A Platform.sh account, ideally with your SSH key(s) added
+2. A Platform.sh account with your SSH key(s) added
 3. A Travis CI account
 4. [Lando installed](https://docs.devwithlando.io/installation/installing.html)
 

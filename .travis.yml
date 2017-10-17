@@ -29,14 +29,30 @@ script:
   # lando
   # lando phpunit -c core --testsuite unit --exclude-group Composer
 
-  # Get stuff from platform
-  cd ..
-  lando platform auth:info
-  lando platform db:dump --gzip --file=dump.sql.gz --project=$PLATFORMSH_PROJECT_ID --environment=master
-  lando db-import dump.sql.gz
-  rm -f dump.sql.gz
-  cd web
-  lando status && lando drush cr
+  # Do platform stuff
+  # - cd ..
+
+  # Verify we are logged in
+  - lando platform auth:info
+
+  # Generate and post an ssh key and then wait because Platform seems to
+  # refresh keys every 90 seconds
+  # @todo: Is the below sleep reliable
+  - lando platform ssh-key:add -y
+  - sleep 120
+
+  # Dump and import the database
+  - lando platform db:dump --gzip --file=dump.sql.gz --project=$PLATFORMSH_PROJECT_ID --environment=master --identity-file=/var/www/.ssh/id_rsa
+  - lando db-import dump.sql.gz
+  - rm -f dump.sql.gz
+
+  # This could be potentially problematic if someone adds their own ssh key after we generate one above
+  # and before we run the below
+  - lando ssh -c "/var/www/.platformsh/bin/platform ssh-key:delete \$(/var/www/.platformsh/bin/platform ssh-keys --format=csv | tail -1 | cut -d ',' -f 1)"
+
+  # Check to see if we succeeded
+  - cd web
+  - lando drush status && lando drush cr
 
   # Run db required tests
   # - lando behat
