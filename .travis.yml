@@ -1,36 +1,42 @@
 language: php
+
+# This can be set to whatever you want since Lando is taking care of your deps
 php:
-  - 5.5
-  - 5.6
-  - 7.0
+  - 7.1
 
-sudo: false
-
-env:
-  global:
-    - SIMPLETEST_DB=sqlite://tmp/site.sqlite
-    - SIMPLETEST_BASE_URL="http://127.0.0.1:8080"
-  matrix:
-    - RELEASE=stable
-    - RELEASE=dev
+services:
+  - docker
 
 before_install:
-  - echo 'sendmail_path = /bin/true' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - phpenv config-rm xdebug.ini
-  - composer --verbose self-update
-  - composer --version
 
-install:
-  - composer --verbose install
+  # Install Lando
+  - sudo apt-get -y update
+  - sudo apt-get -y install cgroup-bin curl
+  - curl -fsSL -o /tmp/lando-latest.deb http://installer.kalabox.io/lando-latest-dev.deb
+  - sudo dpkg -i /tmp/lando-latest.deb
+
+  # Sanity check to make sure we are rolling
+  - lando version
 
 script:
-  - if [[ $RELEASE = dev ]]; then composer --verbose require --no-update drupal/core:8.1.x-dev; fi;
-  - if [[ $RELEASE = dev ]]; then composer --verbose update; fi;
-  - cd $TRAVIS_BUILD_DIR/web
-  - ./../vendor/bin/drush site-install --verbose --yes --db-url=sqlite://tmp/site.sqlite
-  - ./../vendor/bin/drush runserver http://127.0.0.1:8080 &
-  - sleep 3
-  # Skip core/tests/Drupal/Tests/ComposerIntegrationTest.php because web/ has no composer.json
-  - ./../vendor/bin/phpunit -c core --testsuite unit --exclude-group Composer
-  - ./../vendor/bin/drush
-  - ./../vendor/bin/drupal
+
+  # Start the site
+  - lando start -- -v
+
+  # Run non-db required tests eg linting/code standards/unit tests
+  # cd web
+  # lando
+  # lando
+  # lando phpunit -c core --testsuite unit --exclude-group Composer
+
+  # Get stuff from platform
+  cd ..
+  lando platform auth:info
+  lando platform db:dump --gzip --file=dump.sql.gz --project=$PLATFORMSH_PROJECT_ID --environment=master
+  lando db-import dump.sql.gz
+  rm -f dump.sql.gz
+  cd web
+  lando status && lando drush cr
+
+  # Run db required tests
+  # - lando behat

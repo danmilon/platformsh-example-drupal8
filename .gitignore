@@ -17,3 +17,9 @@ web/sites/*/files
 
 # Ignore configuration files that may contain sensitive information.
 web/sites/*/settings.local.php
+
+# Ignore archives
+*.sql
+*.gz
+*.tar
+*.zip
