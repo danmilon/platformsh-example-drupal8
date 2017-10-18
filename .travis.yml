@@ -24,20 +24,25 @@ script:
   - lando start -- -v
 
   # Run non-db required tests eg linting/code standards/unit tests
+  # Lint the codez
+  - lando phplint
+
+  # Check code standards
+  # lando phpcs --config-set installed_paths /app/vendor/drupal/coder/coder_sniffer
+  # lando phpcs -n --report=full --standard=Drupal --ignore=*.tpl.php --extensions=install,module,php,inc web/modules web/themes web/profiles
+
+  # Unit tests
   # cd web
-  # lando
-  # lando
   # lando phpunit -c core --testsuite unit --exclude-group Composer
+  # cd ..
 
   # Do platform stuff
-  # - cd ..
-
   # Verify we are logged in
   - lando platform auth:info
 
   # Generate and post an ssh key and then wait because Platform seems to
   # refresh keys every 90 seconds
-  # @todo: Is the below sleep reliable
+  # @todo: Is the below sleep reliable?
   - lando platform ssh-key:add -y
   - sleep 120
 
@@ -53,6 +58,7 @@ script:
   # Check to see if we succeeded
   - cd web
   - lando drush status && lando drush cr
+  - cd ..
 
-  # Run db required tests
-  # - lando behat
+  # Run db required tests eg behat
+  - lando behat --config=/app/tests/behat-lando.yml

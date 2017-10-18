@@ -32,6 +32,7 @@ services:
         environment:
           PLATFORMSH_CLI_TOKEN: $PLATFORMSH_CLI_TOKEN
           PLATFORMSH_PROJECT_ID: $PLATFORMSH_PROJECT_ID
+          BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://nginx/"}, "Drupal\\DrupalExtension" : {"drush" :   {  "root":  "/app/web" }}}}'
 
 # Ensure `composer install` also happens every time you start your site
 events:
@@ -44,5 +45,16 @@ tooling:
   platform:
     service: appserver
     description: Run Platform CLI commands
-    cmd:
-      - /var/www/.platformsh/bin/platform
+    cmd: /var/www/.platformsh/bin/platform
+  phplint:
+    service: appserver
+    cmd: /app/vendor/bin/phplint
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/phpcs
+  phpunit:
+    service: appserver
+    cmd: /app/vendor/bin/phpunit
+  behat:
+    service: appserver
+    cmd: /app/vendor/bin/behat

@@ -23,3 +23,6 @@ web/sites/*/settings.local.php
 *.gz
 *.tar
 *.zip
+
+# Lint cache
+.phplint-cache
