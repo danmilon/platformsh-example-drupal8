@@ -58,3 +58,5 @@ tooling:
   behat:
     service: appserver
     cmd: /app/vendor/bin/behat
+  # git:
+  #   service: appserver

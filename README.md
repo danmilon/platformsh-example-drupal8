@@ -19,8 +19,11 @@ Before you kick off you'll need to make sure you have a few things:
 2. A Platform.sh account with your SSH key(s) added
 3. A Travis CI account
 4. [Lando installed](https://docs.devwithlando.io/installation/installing.html)
+5. [Git installed](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)*
 
 It is also definitely worth reading about the upstream [starter kit](https://github.com/platformsh/platformsh-example-drupal8) and accompanying [documentation](https://docs.platform.sh/gettingstarted/local/lando.html) on using Lando with [Platform.sh](http://platform.sh).
+
+* If you are using lando you can forgo the git installation (this is potentially useful for Windows devs) by uncommenting git in the tooling section of your .lando.yml. If you do this you'll need to run `lando git` instead of `git` for all the examples below.
 
 Getting Started
 ---------------
@@ -139,3 +142,47 @@ PLATFORMSH_PROJECT_ID=PROJECT_ID (the same id you used for previous steps)
 
 Trying Things Out
 -----------------
+
+Let's go through a [GitHub flow](https://guides.github.com/introduction/flow/) example!
+
+### 1. Set up a topic branch
+
+```bash
+# Go into the repo
+cd /path/to/my/github/repo
+
+# Checkout master and get the latest and greatest
+git checkout master
+git pull origin master
+
+# Spin up a well named topic branch eg ISSUE_NUMBER-DESCRIPTION
+git checkout -b 1-fixes-that-thing
+```
+
+### 2. Do the dev, commit and push the codes
+
+```
+# Do some awesome dev
+
+# Git commit with a message that matches the issue number
+git add -A
+git commit -m "#1: Describes that i did"
+
+# Push the branch to GitHub
+git push origin 1-fixes-that-thing
+```
+
+* Check out the Lando Reference section below for some tips on how to run tests before you push. This can save a lot of time and reduce the potential shame you feel for failing the automated QA
+
+### 3. Open a PR and do manual and automated testing
+
+Begin by [opening a pull request](https://help.github.com/articles/creating-a-pull-request/). This will trigger the spin up of a QA environment for manual testing and a Travis build for automated testing.
+
+Here is an example PR with:
+
+*
+
+
+
+Lando Reference
+---------------
