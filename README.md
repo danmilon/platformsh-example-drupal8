@@ -132,13 +132,6 @@ If you refresh your local site you should now see what you see on your Platform.
 
 You will want to start by doing Steps 1 and 2 in the Travis [getting started docs](https://docs.travis-ci.com/user/getting-started/). We already have a pre-baked `.travis.yml` file for you so you don't need to worry about that unless you want to tweak it.
 
-Then you will want to uncomment the following lines in your `.lando.yml` and restart your app with `lando restart`.
-
-```yaml
-PLATFORMSH_CLI_TOKEN: $PLATFORMSH_CLI_TOKEN
-PLATFORMSH_PROJECT_ID: $PLATFORMSH_PROJECT_ID
-```
-
 Then you will want to visit your Platform.sh account settings page and generate an API Token. **Make sure you copy the token for the next step because you will only see it once!**
 
 Finally, set the following environment variable [via the Travis UI](https://docs.travis-ci.com/user/environment-variables/#Defining-Variables-in-Repository-Settings).
