@@ -27,7 +27,7 @@ Also see:
 
 ## Managing a Drupal site built with Composer
 
-Nothing is easier than managing a composer based Drupal site on Platform.sh. See [Drupal 8 and Composer](https://docs.platform.sh/frameworks/drupal8.html) for details. For example adding a single module to your Drupal installation is as simple as:
+Nothing is easier than managing a Composer-based Drupal site on Platform.sh. See [Drupal 8 and Composer](https://docs.platform.sh/frameworks/drupal8.html) for details. For example adding a single module to your Drupal installation is as simple as:
 
 ```sh
 composer require drupal/devel
