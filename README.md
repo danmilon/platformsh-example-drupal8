@@ -29,9 +29,9 @@ Also see:
 
 Nothing is easier than managing a composer based Drupal site on Platform.sh. See [Drupal 8 and Composer](https://docs.platform.sh/frameworks/drupal8.html) for details. For example adding a single module to your Drupal installation is as simple as:
 
-```php
+```sh
 composer require drupal/devel
-git commit -am 'add the devel module'
+git commit -am 'Add the Devel module'
 git push
 ```
 
