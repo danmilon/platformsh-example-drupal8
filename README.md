@@ -27,8 +27,13 @@ Also see:
 
 ## Managing a Drupal site built with Composer
 
-Once the site is installed, there is no difference between a site hosted on Platform.sh
-and a site hosted anywhere else.  It's just Composer.  See the [Drupal documentation](https://www.drupal.org/node/2404989) for tips on how best to leverage Composer with Drupal 8.
+Nothing is easier than managing a Composer-based Drupal site on Platform.sh. See [Drupal 8 and Composer](https://docs.platform.sh/frameworks/drupal8.html) for details. For example adding a single module to your Drupal installation is as simple as:
+
+```sh
+composer require drupal/devel
+git commit -am 'Add the Devel module'
+git push
+```
 
 ## How does this starter kit differ from vanilla Drupal from Drupal.org?
 
