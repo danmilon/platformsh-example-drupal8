@@ -86,7 +86,7 @@ web:
                 # Deny direct access to configuration files.
                 '^/sites/sites\.php$':
                     scripts: false
-                '^/sites/default/settings.*?\.php$':
+                '^/sites/[^/]+/settings.*?\.php$':
                     scripts: false
 
         '/sites/default/files':
