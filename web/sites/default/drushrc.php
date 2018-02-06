@@ -3,8 +3,8 @@
  * Example Drush configuration file for a Platform.sh Drupal site.
  */
 
-if (PHP_SAPI === 'cli' && isset($_ENV['PLATFORM_ROUTES']) && isset($_ENV['PLATFORM_APPLICATION_NAME'])) {
-  $routes = json_decode(base64_decode($_ENV['PLATFORM_ROUTES']), TRUE);
+if (PHP_SAPI === 'cli' && getenv('PLATFORM_ROUTES') && getenv('PLATFORM_APPLICATION_NAME')) {
+  $routes = json_decode(base64_decode(getenv('PLATFORM_ROUTES')), TRUE);
   $expected_route_urls = [
     'https://{default}/',
     'https://www.{default}/',
@@ -13,8 +13,8 @@ if (PHP_SAPI === 'cli' && isset($_ENV['PLATFORM_ROUTES']) && isset($_ENV['PLATFO
   ];
   foreach ($routes as $url => $route) {
     if ($route['type'] === 'upstream'
-    	&& $route['upstream'] === $_ENV['PLATFORM_APPLICATION_NAME']
-        && in_array($route['original_url'], $expected_route_urls)) {
+    	&& $route['upstream'] === getenv('PLATFORM_APPLICATION_NAME')
+      && in_array($route['original_url'], $expected_route_urls)) {
       $options['uri'] = $url;
       break;
     }
