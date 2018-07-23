@@ -24,8 +24,8 @@ config:
 # in the application container and auto-run `composer install`
 services:
   appserver:
-    build:
-      - "mkdir /var/www/.platformsh && mkdir /var/www/.platformsh/bin"
+    run:
+      - "mkdir -p /var/www/.platformsh && mkdir -p /var/www/.platformsh/bin"
       - "curl -fsSL -o /var/www/.platformsh/bin/platform https://github.com/platformsh/platformsh-cli/releases/download/v3.33.6/platform.phar"
       - "chmod ug+x /var/www/.platformsh/bin/platform"
       - "cd $LANDO_MOUNT && composer install"
@@ -33,11 +33,6 @@ services:
       services:
         environment:
           BEHAT_PARAMS: '{"extensions" : {"Behat\\MinkExtension" : {"base_url" : "http://nginx/"}, "Drupal\\DrupalExtension" : {"drush" :   {  "root":  "/app/web" }}}}'
-
-# Ensure `composer install` also happens every time you start your site
-events:
-  post-db-import:
-    - appserver: "cd $LANDO_MOUNT && composer install"
 
 # The following entry creates a `lando platform` command that will run
 # any Platform CLI command from inside the container if desired.
@@ -58,5 +53,4 @@ tooling:
   behat:
     service: appserver
     cmd: /app/vendor/bin/behat
-  # git:
-  #   service: appserver
+
